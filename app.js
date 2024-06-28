@@ -40,8 +40,25 @@ const userSchema = new mongoose.Schema({
     }
   });
 
+  app.post('/auth/login', async (req, res) => {
+    const { username, password } = req.body;
+    if (!username || !password) {
+      return res.status(400).json({ message: 'Username and password are required' });
+    }
   
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid credentials' });
+    }
   
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+  
+    if (!isPasswordValid) {
+      return res.status(400).json({ message: 'Invalid credentials' });
+    }
+  });
+  
+
 app.listen(PORT, ()=>{
     console.log(`Server works on PORT: ${PORT}`)
 })
