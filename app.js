@@ -79,6 +79,10 @@ const userSchema = new mongoose.Schema({
   app.get('/homepage', authMiddleware, (req, res)=>{
     res.sendFile(path.join(__dirname, 'public', 'homepage.html'))
   })
+  app.get('/auth', (req, res)=>{
+    res.sendFile(path.join(__dirname, 'public', 'index.html'))
+  })
+
   
 app.listen(PORT, ()=>{
     console.log(`Server works on PORT: ${PORT}`)
