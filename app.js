@@ -77,7 +77,7 @@ const userSchema = new mongoose.Schema({
   };
 
   app.get('/homepage', authMiddleware, (req, res)=>{
-    res.sendFile(path.join(__dirname, 'public', 'index.html'))
+    res.sendFile(path.join(__dirname, 'public', 'homepage.html'))
   })
   
 app.listen(PORT, ()=>{
