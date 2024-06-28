@@ -56,6 +56,10 @@ const userSchema = new mongoose.Schema({
     if (!isPasswordValid) {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
+    const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
+    res.cookie('token', token, { httpOnly: true, secure: true });
+    res.status(200).json({ message: 'Logged in successfully' });
+
   });
   
 
