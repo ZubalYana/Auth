@@ -75,6 +75,10 @@ const userSchema = new mongoose.Schema({
       res.status(401).json({ message: 'Unauthorized' });
     }
   };
+
+  app.get('/homepage', authMiddleware, (req, res)=>{
+    res.sendFile(path.join(__dirname, 'public', 'index.html'))
+  })
   
 app.listen(PORT, ()=>{
     console.log(`Server works on PORT: ${PORT}`)
