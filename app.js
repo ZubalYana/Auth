@@ -24,7 +24,24 @@ const userSchema = new mongoose.Schema({
   app.use(cookieParser());
   app.use(express.static('public'));
   
+  app.post('/auth/register', async (req, res) => {
+    const { username, password } = req.body;
+    if (!username || !password) {
+      return res.status(400).json({ message: 'Username and password are required' });
+    }
+  
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = new User({ username, password: hashedPassword });
+    try {
+      await user.save();
+      res.status(201).json({ message: 'User created successfully' });
+    } catch (err) {
+      res.status(400).json({ message: 'User already exist' });
+    }
+  });
 
+  
+  
 app.listen(PORT, ()=>{
     console.log(`Server works on PORT: ${PORT}`)
 })
