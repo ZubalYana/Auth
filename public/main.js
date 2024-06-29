@@ -13,3 +13,18 @@ $('#signup').click(()=>{
         })
     }
 })
+$('#signup').click(()=>{
+    if($('#login').val() != '' && $('#password').val() != ''){
+        let data = {
+            username: $('#username').val(),
+            password: $('#password').val()
+        }
+        axios.post('/auth/login', data)
+        .then(()=>{
+            console.log('Logged in successfully')
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    }
+})
