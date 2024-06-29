@@ -13,8 +13,8 @@ $('#signup').click(()=>{
         })
     }
 })
-$('#signup').click(()=>{
-    if($('#login').val() != '' && $('#password').val() != ''){
+$('#login').click(()=>{
+    if($('#username').val() != '' && $('#password').val() != ''){
         let data = {
             username: $('#username').val(),
             password: $('#password').val()
