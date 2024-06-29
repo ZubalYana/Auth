@@ -4,7 +4,7 @@ $('#signup').click(()=>{
             username: $('#username').val(),
             password: $('#password').val()
         }
-        app.post('/auth/register', data)
+        axios.post('/auth/register', data)
         .then(()=>{
             console.log('Registered successfully')
         })
