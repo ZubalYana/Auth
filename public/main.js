@@ -22,6 +22,7 @@ $('#login').click(()=>{
         axios.post('/auth/login', data)
         .then(()=>{
             console.log('Logged in successfully')
+            window.location.href = '/homepage';
         })
         .catch((err)=>{
             console.log(err)

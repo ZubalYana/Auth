@@ -56,14 +56,13 @@ const userSchema = new mongoose.Schema({
     if (!isPasswordValid) {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
+    
     const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
     res.cookie('token', token, { httpOnly: true, secure: true });
-    res.status(200).json({ message: 'Logged in successfully' });
-
   });
   
   const authMiddleware = (req, res, next) => {
-    const token = req.cookie.token;
+    const token = req.cookies.token; // Changed from req.cookie.token to req.cookies.token
     if (!token) {
       return res.status(401).json({ message: 'Unauthorized' });
     }
@@ -75,13 +74,14 @@ const userSchema = new mongoose.Schema({
       res.status(401).json({ message: 'Unauthorized' });
     }
   };
-
-  app.get('/homepage', authMiddleware, (req, res)=>{
-    res.sendFile(path.join(__dirname, 'public', 'homepage.html'))
-  })
-  app.get('/auth', (req, res)=>{
-    res.sendFile(path.join(__dirname, 'public', 'index.html'))
-  })
+  
+  app.get('/homepage', authMiddleware, (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'homepage.html'));
+  });
+  
+  app.get('/auth', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  });
 
   
 app.listen(PORT, ()=>{
