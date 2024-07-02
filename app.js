@@ -39,7 +39,7 @@ const userSchema = new mongoose.Schema({
       res.status(400).json({ message: 'User already exist' });
     }
   });
-
+  
   app.post('/auth/login', async (req, res) => {
     const { username, password } = req.body;
     if (!username || !password) {
